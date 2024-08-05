@@ -4,25 +4,24 @@ import { useState } from "react";
 import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
-
   const [inputs, setInputs] = useState({
     fullName: "",
     username: "",
     password: "",
     confirmPassword: "",
-    gender: ""
+    gender: "",
   });
 
   const { loading, signup } = useSignup();
 
   const handleCheckBoxChange = (gender) => {
-    setInputs({...inputs, gender})
-  }
+    setInputs({ ...inputs, gender });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(inputs);
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -39,7 +38,9 @@ const SignUp = () => {
             <input
               type="text"
               value={inputs.fullName}
-              onChange={(e) => setInputs({...inputs, fullName: e.target.value})}
+              onChange={(e) =>
+                setInputs({ ...inputs, fullName: e.target.value })
+              }
               className="w-full input input-bordered  h-10"
             />
           </div>
@@ -49,8 +50,10 @@ const SignUp = () => {
               <span className="text-base label-text">Username</span>
             </label>
             <input
-            value={inputs.username}
-            onChange={(e) => setInputs({...inputs, username: e.target.value})}
+              value={inputs.username}
+              onChange={(e) =>
+                setInputs({ ...inputs, username: e.target.value })
+              }
               type="text"
               className="w-full input input-bordered h-10"
             />
@@ -61,8 +64,10 @@ const SignUp = () => {
               <span className="text-base label-text">Password</span>
             </label>
             <input
-            value={inputs.password}
-            onChange={(e) => setInputs({...inputs, password: e.target.value})}
+              value={inputs.password}
+              onChange={(e) =>
+                setInputs({ ...inputs, password: e.target.value })
+              }
               type="password"
               placeholder="Enter Password"
               className="w-full input input-bordered h-10"
@@ -74,26 +79,38 @@ const SignUp = () => {
               <span className="text-base label-text">Confirm Password</span>
             </label>
             <input
-            value={inputs.confirmPassword}
-            onChange={(e) => setInputs({...inputs, confirmPassword: e.target.value})}
+              value={inputs.confirmPassword}
+              onChange={(e) =>
+                setInputs({ ...inputs, confirmPassword: e.target.value })
+              }
               type="password"
               placeholder="Confirm Password"
               className="w-full input input-bordered h-10"
             />
           </div>
 
-          <GenderCheckbox onCheckBoxChange={handleCheckBoxChange} selectedGender={inputs.gender} />
+          <GenderCheckbox
+            onCheckBoxChange={handleCheckBoxChange}
+            selectedGender={inputs.gender}
+          />
 
           <Link
             className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
-            to={'/login'}
+            to={"/login"}
           >
             Already have an account?
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2 border border-slate-700">
-              Sign Up
+            <button
+              className="btn btn-block btn-sm mt-2 border border-slate-700"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>
