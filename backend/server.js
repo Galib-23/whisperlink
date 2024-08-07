@@ -5,8 +5,8 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js"
 import messageRoutes from "./routes/message.routes.js";
 import connectToDB from "./db/connectToDB.js";
+import { app, server } from "./socket/socket.js";
 
-const app = express();
 const port = process.env.PORT || 5000;
 
 dotenv.config();
@@ -21,7 +21,7 @@ app.use("/api/users", userRoutes)
 
 
 app.get("/", (req, res) => res.send("Hello World!"));
-app.listen(port, async () => {
+server.listen(port, async () => {
     connectToDB();
     console.log(`Whisperlink server listening on port ${port}!`)
 });
